@@ -55,6 +55,9 @@ int main(void)
     b_arg->interval = 3;
     b_arg->rounds = 1000000;
 
+
+    pthread_mutex_init(&lock, NULL);
+
     printf("Before thread, global_var = %d\n", global_var);
 
     pthread_create(&tid_alpha, NULL, increase_func, a_arg);
@@ -64,6 +67,7 @@ int main(void)
 
     free(a_arg);
     free(b_arg);
+    pthread_mutex_destroy(&lock);
 
     printf("Final global_var = %d", global_var);
     printf(", while global_var should be \"%d\"\n", 
